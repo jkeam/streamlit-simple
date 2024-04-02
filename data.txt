@@ -1,0 +1,49 @@
+OpenShift is a family of containerization software products developed by Red Hat. Its flagship product is the OpenShift Container Platform — a hybrid cloud platform as a service built around Linux containers orchestrated and managed by Kubernetes on a foundation of Red Hat Enterprise Linux. The family's other products provide this platform through different environments: OKD serves as the community-driven upstream (akin to the way that Fedora is upstream of Red Hat Enterprise Linux), Several deployment methods are available including self-managed, cloud native under ROSA (Red Hat OpenShift Service on AWS), ARO (Azure Red Hat OpenShift) and RHOIC (Red Hat OpenShift on IBM Cloud) on AWS, Azure, and IBM Cloud respectively, OpenShift Online as software as a service, and OpenShift Dedicated as a managed service.
+
+The OpenShift Console has developer and administrator oriented views. Administrator views allow one to monitor container resources and container health, manage users, work with operators, etc. Developer views are oriented around working with application resources within a namespace. OpenShift also provides a CLI that supports a superset of the actions that the Kubernetes CLI provides.
+
+History
+OpenShift originally came from Red Hat's acquisition of Makara, a company marketing a platform as a service (PaaS) based on Linux containers, in November 2010. OpenShift was announced in May 2011 as proprietary technology and did not become open-source until May of 2012. Up until v3, released in June 2015, the container technology and container orchestration technology used custom developed technologies. This changed in v3 with the adoption of Docker as the container technology, and Kubernetes as the container orchestration technology. The v4 product has many other architectural changes - a prominent one being a shift to using CRI-O, as the container runtime (and Podman for interacting with pods and containers), and Buildah as the container build tool, thus breaking the exclusive dependency on Docker.
+
+Architecture
+The main difference between OpenShift and vanilla Kubernetes is the concept of build-related artifacts. In OpenShift, such artifacts are considered first class Kubernetes resources upon which standard Kubernetes operations can apply. OpenShift's client program, "oc", offers a superset of the standard capabilities bundled in the mainline "kubectl" client program of Kubernetes. Using this client, one can directly interact with the build-related resources using sub-commands (such as "new-build" or "start-build"). In addition to this, an OpenShift-native pod builds technology called Source-to-Image (S2I) is available out of the box, though this is slowly being phased out in favor of Tekton — which is a cloud native way of building and deploying to Kubernetes. For the OpenShift platform, this provides capabilities equivalent to what Jenkins can do.
+
+Some other differences when OpenShift is compared to Kubernetes:
+
+The v4 product line uses the CRI-O runtime - which means that docker daemons are not present on the control plane or compute nodes. This improves the security posture of the cluster.
+The out-of-the-box install of OpenShift comes with an image repository.
+ImageStreams (a sequence of pointers to images which can be associated with deployments) and Templates (a packaging mechanism for application components) are unique to OpenShift and simplify application deployment and management.
+The "new-app" command which can be used to initiate an application deployment automatically applies the app label (with the value of the label taken from the --name argument) to all resources created as a result of the deployment. This can simplify the management of application resources.
+In terms of platforms, OpenShift used to be limited to Red Hat’s own offerings but by 2020 supports others like AWS, IBM Cloud, vSphere, and bare metal deployments with OpenShift 4.
+OpenShift’s implementation of Deployment, called DeploymentConfig is logic-based in comparison to Kubernetes' controller-based Deployment objects. As of v4.5, OpenShift is steering more towards Deployments by changing the default behavior of its CLI.
+An embedded OperatorHub. This is a web GUI where users can browse and install a library of Kubernetes Operators that have been packaged for easy lifecycle management. These include Red Hat authored Operators, Red Hat Certified Operators and Community Operators.
+OpenShift v4 tightly controls the operating systems used. The "control plane" components have to be running Red Hat CoreOS. This level of control enables the cluster to support upgrades and patches of the control plane nodes with minimal effort. The compute nodes can be running Red Hat CoreOS, RHEL or even Windows.
+
+OpenShift introduced the concept of routes - points of traffic ingress into the Kubernetes cluster. The Kubernetes ingress concept was modeled after this.
+
+OpenShift includes other software such as application runtimes as well as infrastructure components from the Kubernetes ecosystem. For example, for observability needs, Prometheus, Fluentd, Vector, Loki, and Istio (and their dependencies) are included. The Red Hat branding of Istio is called Red Hat Service Mesh, and is based on an opensource project called Maistra, that aligns base Istio to the needs of opensource OpenShift.
+
+Products
+OpenShift Container Platform
+OpenShift Container Platform (formerly known as OpenShift Enterprise) is Red Hat's on-premises private platform as a service product, built around application containers powered by CRI-O, with orchestration and management provided by Kubernetes, on Red Hat Enterprise Linux and Red Hat Enterprise Linux CoreOS.
+
+OKD
+OKD, known until August 2018 as OpenShift Origin (Origin Community Distribution) is the upstream community project used in OpenShift Online, OpenShift Dedicated, and OpenShift Container Platform. Built around a core of Docker container packaging and Kubernetes container cluster management, OKD is augmented by application lifecycle management functionality and DevOps tooling. OKD provides an open source application container platform. All source code for the OKD project is available under the Apache License (Version 2.0) on GitHub.
+
+Red Hat OpenShift Online
+Red Hat OpenShift Online (RHOO) is Red Hat's public cloud application development and hosting service which runs on AWS and IBM Cloud.
+
+Online offered version 2 of the OKD project source code, which is also available under the Apache License Version 2.0. This version supported a variety of languages, frameworks, and databases via pre-built "cartridges" running under resource-quota "gears". Developers could add other languages, databases, or components via the OpenShift Cartridge application programming interface. This was deprecated in favour of OpenShift 3, and was withdrawn on 30 September 2017 for non-paying customers and 31 December 2017 for paying customers.
+
+OpenShift 3 is built around Kubernetes. It can run any Docker-based container, but Openshift Online is limited to running containers that do not require root.
+
+Red Hat OpenShift 4 for IBM Z and IBM LinuxONE supports on-premise, cloud, and hybrid environments.
+
+OpenShift Dedicated
+OpenShift Dedicated (OSD) is Red Hat's managed private cluster offering, built around a core of application containers powered by Docker, with orchestration and management provided by Kubernetes, on a foundation of Red Hat Enterprise Linux. It is available on the Amazon Web Services (AWS), IBM Cloud, Google Cloud Platform (GCP) marketplaces since December 2016. A managed private cluster offering is also offered on Microsoft Azure under the name Azure Red Hat OpenShift (ARO).
+
+OpenShift Data Foundation
+OpenShift Data Foundation (ODF) provides cloud native storage, data management and data protection for applications running with OpenShift Container platform in the cloud, on-prem, and in hybrid/multi-cloud environments.
+
+OpenShift Database Access
+Red Hat OpenShift Database Access (RHODA) is a capability in managed OpenShift Kubernetes environments enabling administrators to set up connections to database-as-a-service offerings from different providers. RHODA is an add-on service to OSD and Red Hat OpenShift Service on AWS (ROSA). RHODA's initial alpha release included support for MongoDB Atlas for MongoDB and Crunchy Bridge for PostgreSQL.
